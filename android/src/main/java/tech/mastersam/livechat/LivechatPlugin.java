@@ -84,6 +84,9 @@ public class LivechatPlugin implements FlutterPlugin, MethodCallHandler, Activit
             case "clearSession":
                 clearChatSession(result);
                 break;
+            case "dismissChatWindow":
+                dismissChatWindow(result);
+                break;
             default:
                 result.notImplemented();
                 break;
@@ -210,6 +213,11 @@ public class LivechatPlugin implements FlutterPlugin, MethodCallHandler, Activit
         if (windowView != null) {
             windowView.reload(false);
         }
+        result.success(null);
+    }
+
+    private  void dismissChatWindow(Result result){
+        ChatWindowUtils.detachChatWindowInstance(activity,null);
         result.success(null);
     }
 

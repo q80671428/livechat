@@ -37,6 +37,11 @@ class Livechat {
     await _channel.invokeMethod('clearSession');
   }
 
+  /// Dismiss chat window
+  static Future<void> dismissWidget() async {
+    await _channel.invokeMethod('dismissChatWindow');
+  }
+
   /// Listen to chat events: new messages, errors, visibility changes, etc.
   static Stream<dynamic> get chatEvents =>
       _eventChannel.receiveBroadcastStream();
