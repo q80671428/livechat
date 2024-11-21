@@ -166,7 +166,7 @@ class _SupportState extends State<Support> {
                   height: 10,
                 ),
                 CustomButton(
-                  onPress: () {
+                  onPress: () async {
                     Livechat.beginChat(
                       licenseNoTextController.text,
                       groupId: groupIdTextController.text,
@@ -177,6 +177,8 @@ class _SupportState extends State<Support> {
                         'position': positionTextController.text
                       },
                     );
+                    await Future.delayed(const Duration(seconds: 2));
+                    Livechat.dismissWidget();
                   },
                   title: "Start Live Chat",
                 ),

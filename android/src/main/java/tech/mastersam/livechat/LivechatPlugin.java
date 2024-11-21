@@ -3,6 +3,7 @@ package tech.mastersam.livechat;
 import android.content.Intent;
 import androidx.core.app.ActivityCompat;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Toast;
 import android.app.Activity;
 import android.content.Context;
@@ -217,7 +218,11 @@ public class LivechatPlugin implements FlutterPlugin, MethodCallHandler, Activit
     }
 
     private  void dismissChatWindow(Result result){
-        ChatWindowUtils.detachChatWindowInstance(activity,null);
+        if (windowView != null) {
+            // 将 windowView 传递给 detachChatWindowInstance
+            ChatWindowUtils.detachChatWindowInstance(activity, (View) windowView);
+            windowView = null;  // 清空 windowView，确保它不再被访问
+        }
         result.success(null);
     }
 
