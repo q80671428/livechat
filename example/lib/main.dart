@@ -178,7 +178,7 @@ class _SupportState extends State<Support> {
                       },
                     );
                     await Future.delayed(const Duration(seconds: 2));
-                    Livechat.dismissWidget();
+                    // Livechat.dismissWidget();
                   },
                   title: "Start Live Chat",
                 ),

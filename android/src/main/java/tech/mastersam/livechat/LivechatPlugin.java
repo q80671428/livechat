@@ -4,6 +4,9 @@ import android.content.Intent;
 import androidx.core.app.ActivityCompat;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 import android.app.Activity;
 import android.content.Context;
@@ -120,6 +123,8 @@ public class LivechatPlugin implements FlutterPlugin, MethodCallHandler, Activit
                         windowData.put("EventType", "WindowInitialized");
                         events.success(windowData);
                     }
+
+                    addCloseButtonToWindow();
                 }
 
                 @Override
@@ -197,6 +202,31 @@ public class LivechatPlugin implements FlutterPlugin, MethodCallHandler, Activit
         } catch (Exception e) {
             result.error("CHAT_WINDOW_ERROR", "Failed to start chat window", e);
         }
+    }
+
+    // Add a close button to the chat window
+    private void addCloseButtonToWindow() {
+        // 创建 ImageView 来显示关闭图标
+        ImageView closeButton = new ImageView(activity);
+
+        // 使用 Android 系统自带的关闭图标
+        closeButton.setImageResource(android.R.drawable.ic_menu_close_clear_cancel);  // 使用系统自带的关闭图标
+        closeButton.setLayoutParams(new ViewGroup.LayoutParams(
+                dpToPx(24),  // 设置图标的宽度
+                dpToPx(24)   // 设置图标的高度
+        ));
+        closeButton.setOnClickListener(v -> {
+            windowView.hideChatWindow();
+        });
+
+        ((ViewGroup) windowView).addView(closeButton);
+        // 设置关闭按钮位置为右上角
+//        closeButton.setX(windowView.getWidth() - closeButton.getLayoutParams().width);
+//        closeButton.setY(0);
+    }
+    private int dpToPx(int dp) {
+        float density = activity.getResources().getDisplayMetrics().density;
+        return (int) (dp * density);
     }
 
     private ChatWindowConfiguration buildChatConfig(String licenseNo, String groupId, String visitorName, String visitorEmail, HashMap<String, String> customParams) {
