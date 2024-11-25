@@ -80,14 +80,14 @@ public class SwiftLivechatPlugin: NSObject, FlutterPlugin {
                   let closeButton = UIButton(type: .system)
                   closeButton.setTitle("CloseChat", for: .normal)
                   // 设置浅蓝色背景
-                  closeButton.backgroundColor = UIColor.systemBlue.withAlphaComponent(0.3)  // 淡蓝色背景，使用 `.withAlphaComponent(0.3)` 使其变得更浅
+                  closeButton.backgroundColor = UIColor.systemBlue  // 淡蓝色背景，使用 `.withAlphaComponent(0.3)` 使其变得更浅
 
                   // 设置圆角
                   closeButton.layer.cornerRadius = 10  // 设置圆角半径，值可以调整以实现不同的圆角效果
 
                   // 设置白色标题颜色
                   closeButton.setTitleColor(.white, for: .normal)  // 设置按钮标题的颜色为白色
-                  closeButton.frame = CGRect(x: 0, y: 40, width: 100, height: 40)  // 设置按钮的大小和位置
+                  closeButton.frame = CGRect(x: 20, y: 30, width: 80, height: 30)  // 设置按钮的大小和位置
                   closeButton.addTarget(self, action: #selector(closeChat), for: .touchUpInside)
                   // 将按钮添加到 LiveChat 窗口的顶部
                   liveChatView.addSubview(closeButton)
