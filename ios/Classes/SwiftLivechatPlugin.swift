@@ -3,6 +3,8 @@ import UIKit
 import LiveChat
 
 public class SwiftLivechatPlugin: NSObject, FlutterPlugin {
+// 这里保存 LiveChat 控制器的引用
+    private var chatViewController: UIViewController?
   public static func register(with registrar: FlutterPluginRegistrar) {
     let channel = FlutterMethodChannel(name: "livechatt", binaryMessenger: registrar.messenger())
     let instance = SwiftLivechatPlugin()
@@ -50,7 +52,10 @@ public class SwiftLivechatPlugin: NSObject, FlutterPlugin {
             }
 
             LiveChat.presentChat()
+            // 添加关闭按钮
+            addCloseButton()
             result(nil)
+
         
         case "clearSession":
             LiveChat.clearSession()
@@ -63,4 +68,28 @@ public class SwiftLivechatPlugin: NSObject, FlutterPlugin {
             result(FlutterMethodNotImplemented)
     }
   }
+   // 添加关闭按钮
+      private func addCloseButton() {
+          // 获取当前显示的 window
+          if let window = UIApplication.shared.windows.first(where: { $0.isKeyWindow }) {
+
+              // 检查 LiveChat 是否已经显示，假设 LiveChat 已经展示了一个视图
+              if let liveChatView = window.subviews.first(where: { $0.isKind(of: UIView.self) }) {
+
+                  // 创建关闭按钮
+                  let closeButton = UIButton(type: .system)
+                  closeButton.setTitle("Close", for: .normal)
+                  closeButton.frame = CGRect(x: 20, y: 40, width: 100, height: 40)  // 设置按钮的大小和位置
+                  closeButton.addTarget(self, action: #selector(closeChat), for: .touchUpInside)
+
+                  // 将按钮添加到 LiveChat 窗口的顶部
+                  liveChatView.addSubview(closeButton)
+              }
+          }
+      }
+
+      // 关闭聊天窗口
+      @objc private func closeChat() {
+          LiveChat.dismissChat()
+      }
 }
