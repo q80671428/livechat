@@ -87,7 +87,7 @@ public class SwiftLivechatPlugin: NSObject, FlutterPlugin {
 
                   // 设置白色标题颜色
                   closeButton.setTitleColor(.white, for: .normal)  // 设置按钮标题的颜色为白色
-                  closeButton.frame = CGRect(x: 20, y: 30, width: 80, height: 30)  // 设置按钮的大小和位置
+                  closeButton.frame = CGRect(x: 20, y: 40, width: 80, height: 30)  // 设置按钮的大小和位置
                   closeButton.addTarget(self, action: #selector(closeChat), for: .touchUpInside)
                   // 将按钮添加到 LiveChat 窗口的顶部
                   liveChatView.addSubview(closeButton)
